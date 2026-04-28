@@ -2007,8 +2007,14 @@ async function doLogin(){
   S.loading.login=true;setBtnLoading('loginBtn',true);
   await cleanSession();
   try{
-    let ud=(await sb.from('users').select('email,status').ilike('username',username).maybeSingle()).data;
-    if(!ud)ud=(await sb.from('users').select('email,status').ilike('display_name',username).maybeSingle()).data;
+    // البحث في display_name أولاً ثم username
+    let ud=null;
+    const r1=await sb.from('users').select('email,status').ilike('display_name',username).maybeSingle();
+    if(r1.data) ud=r1.data;
+    if(!ud){
+      const r2=await sb.from('users').select('email,status').ilike('username',username).maybeSingle();
+      if(r2.data) ud=r2.data;
+    }
     if(!ud){haptic('error');toast('الاسم غير موجود','err');return}
     if(ud.status==='suspended'){toast('حسابك موقوف','err');return}
     const sr=await sb.auth.signInWithPassword({email:ud.email,password});
@@ -3601,4 +3607,4 @@ if('serviceWorker' in navigator){
 }
 </script>
 </body>
-</html>
+   </html>
