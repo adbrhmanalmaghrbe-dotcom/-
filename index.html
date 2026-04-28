@@ -1743,6 +1743,10 @@ box-shadow:0 8px 50px rgba(59,130,246,.35);
     <button class="ap-modal-close" data-close="apEditPlayerModal">✕</button>
     <div class="ap-modal-title">✏️ تعديل اللاعب</div>
     <div id="apEditPlayerNameDisplay" style="font-size:13px;font-weight:800;color:var(--gold);margin-bottom:var(--s4)"></div>
+    <div class="ap-field">
+      <label>الاسم الجديد (اتركه فارغاً للإبقاء على الاسم الحالي)</label>
+      <input type="text" id="apEditPlayerNewName" placeholder="أحمد محمد">
+    </div>
     <div class="ap-field"><label>كلمة مرور جديدة (فارغ = بدون تغيير)</label><input type="text" id="apEditPlayerPass"></div>
     <div class="ap-field"><label>النقاط</label><input type="number" id="apEditPlayerPts" min="0"></div>
     <input type="hidden" id="apEditPlayerId">
@@ -2667,7 +2671,140 @@ function renderHistory(){
 /* ══════════════════════════════════════════════
    PLAYER STATS
 ══════════════════════════════════════════════ */
-async function showMyStats(){if(!S.user)return;await showPlayerStats(S.user.id,S.user.display_name)}
+async function showMyStats(){
+  if(!S.user)return;
+  openSheet(`
+    <div class="sheet-title">👤 ملفي الشخصي</div>
+    <div style="display:flex;gap:var(--s3);margin-bottom:var(--s5)">
+      <button id="tabStatsBtn" style="flex:1;padding:var(--s2);font-size:12px;border-radius:var(--r6);background:var(--grad-brand);color:#fff;border:none;font-family:var(--ff);font-weight:800;cursor:pointer">📊 الإحصائيات</button>
+      <button id="tabSettingsBtn" style="flex:1;padding:var(--s2);font-size:12px;border-radius:var(--r6);background:var(--glass);color:var(--t2);border:1px solid var(--rim);font-family:var(--ff);font-weight:800;cursor:pointer">🔐 إعداداتي</button>
+    </div>
+    <div id="psContent"><div class="skeleton" style="height:120px;border-radius:var(--r8)"></div></div>
+    <div id="psSettings" style="display:none"></div>
+  `);
+
+  await renderPlayerStatsSheet(S.user.id, S.user.display_name, 'psContent');
+
+  document.getElementById('tabStatsBtn')?.addEventListener('click', async()=>{
+    document.getElementById('tabStatsBtn').style.cssText='flex:1;padding:var(--s2);font-size:12px;border-radius:var(--r6);background:var(--grad-brand);color:#fff;border:none;font-family:var(--ff);font-weight:800;cursor:pointer';
+    document.getElementById('tabSettingsBtn').style.cssText='flex:1;padding:var(--s2);font-size:12px;border-radius:var(--r6);background:var(--glass);color:var(--t2);border:1px solid var(--rim);font-family:var(--ff);font-weight:800;cursor:pointer';
+    document.getElementById('psContent').style.display='';
+    document.getElementById('psSettings').style.display='none';
+    if(!document.getElementById('psContent').innerHTML.includes('player-stats-grid'))
+      await renderPlayerStatsSheet(S.user.id, S.user.display_name, 'psContent');
+  });
+
+  document.getElementById('tabSettingsBtn')?.addEventListener('click', ()=>{
+    document.getElementById('tabSettingsBtn').style.cssText='flex:1;padding:var(--s2);font-size:12px;border-radius:var(--r6);background:var(--grad-brand);color:#fff;border:none;font-family:var(--ff);font-weight:800;cursor:pointer';
+    document.getElementById('tabStatsBtn').style.cssText='flex:1;padding:var(--s2);font-size:12px;border-radius:var(--r6);background:var(--glass);color:var(--t2);border:1px solid var(--rim);font-family:var(--ff);font-weight:800;cursor:pointer';
+    document.getElementById('psContent').style.display='none';
+    document.getElementById('psSettings').style.display='';
+    renderPlayerSettings();
+  });
+}
+function renderPlayerSettings(){
+  const el = document.getElementById('psSettings');
+  if(!el) return;
+  el.innerHTML = `
+    <div style="font-size:13px;font-weight:800;color:var(--t2);margin-bottom:var(--s4);display:flex;align-items:center;gap:var(--s2)">
+      🔐 تغيير كلمة المرور
+    </div>
+    <div style="background:var(--glass);border:1px solid var(--rim);border-radius:var(--r10);padding:var(--s4)">
+      <div class="form-group" style="margin-bottom:var(--s3)">
+        <label class="form-label">كلمة المرور الحالية</label>
+        <div class="pw-group">
+          <input class="form-input" id="curPassInput" type="password" placeholder="••••••••">
+          <button class="pw-toggle" id="toggleCurPwd" type="button">👁</button>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:var(--s3)">
+        <label class="form-label">كلمة المرور الجديدة</label>
+        <div class="pw-group">
+          <input class="form-input" id="newPassInput" type="password" placeholder="6 أحرف على الأقل">
+          <button class="pw-toggle" id="toggleNewPwd" type="button">👁</button>
+        </div>
+        <div class="strength-bar" style="margin-top:var(--s2)">
+          <div class="strength-fill" id="newPwdStrength" style="width:0"></div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:var(--s4)">
+        <label class="form-label">تأكيد كلمة المرور الجديدة</label>
+        <div class="pw-group">
+          <input class="form-input" id="confirmPassInput" type="password" placeholder="أعد الكتابة">
+          <button class="pw-toggle" id="toggleConfirmPwd" type="button">👁</button>
+        </div>
+      </div>
+      <button class="btn btn-primary" id="changePassBtn" style="margin-top:0">
+        <span class="btn-text">💾 تغيير كلمة المرور</span>
+        <div class="btn-spinner"></div>
+      </button>
+    </div>
+  `;
+
+  [['toggleCurPwd','curPassInput'],['toggleNewPwd','newPassInput'],['toggleConfirmPwd','confirmPassInput']].forEach(([btn,inp])=>{
+    document.getElementById(btn)?.addEventListener('click',()=>{
+      const el=document.getElementById(inp);
+      if(el) el.type = el.type==='password'?'text':'password';
+    });
+  });
+
+  document.getElementById('newPassInput')?.addEventListener('input', e=>{
+    const v = e.target.value;
+    const fill = document.getElementById('newPwdStrength');
+    if(!fill) return;
+    if(v.length===0){fill.style.width='0';fill.className='strength-fill';return}
+    if(v.length < 6) fill.className='strength-fill s-weak';
+    else if(v.length < 10) fill.className='strength-fill s-med';
+    else fill.className='strength-fill s-strong';
+  });
+
+  document.getElementById('changePassBtn')?.addEventListener('click', doChangePassword);
+}
+
+async function doChangePassword(){
+  const curPass = (document.getElementById('curPassInput')?.value||'').trim();
+  const newPass = (document.getElementById('newPassInput')?.value||'').trim();
+  const confirmPass = (document.getElementById('confirmPassInput')?.value||'').trim();
+
+  if(!curPass||!newPass||!confirmPass){toast('أكمل جميع الحقول','err');return}
+  if(newPass.length < 6){toast('كلمة المرور الجديدة 6 أحرف على الأقل','err');return}
+  if(newPass !== confirmPass){
+    haptic('error');
+    toast('كلمتا المرور غير متطابقتين','err');
+    document.getElementById('confirmPassInput')?.classList.add('error');
+    setTimeout(()=>document.getElementById('confirmPassInput')?.classList.remove('error'),2000);
+    return;
+  }
+  if(curPass === newPass){toast('كلمة المرور الجديدة مطابقة للحالية','warn');return}
+
+  setBtnLoading('changePassBtn', true);
+  try{
+    const reAuth = await sb.auth.signInWithPassword({
+      email: S.user.email,
+      password: curPass
+    });
+    if(reAuth.error){
+      haptic('error');
+      toast('كلمة المرور الحالية غير صحيحة ❌','err');
+      document.getElementById('curPassInput')?.classList.add('error');
+      setTimeout(()=>document.getElementById('curPassInput')?.classList.remove('error'),2000);
+      return;
+    }
+
+    const {error} = await sb.auth.updateUser({password: newPass});
+    if(error){toast('خطأ: '+error.message,'err');return}
+
+    haptic('success');
+    toast('✅ تم تغيير كلمة المرور بنجاح','ok',4000);
+    ['curPassInput','newPassInput','confirmPassInput'].forEach(id=>{
+      const el=document.getElementById(id);if(el)el.value='';
+    });
+    const fill=document.getElementById('newPwdStrength');
+    if(fill){fill.style.width='0';fill.className='strength-fill';}
+
+  }catch(e){toast('خطأ: '+e.message,'err')}
+  finally{setBtnLoading('changePassBtn',false)}
+}
 async function showPlayerStats(userId,name){
   openSheet(`<div class="sheet-title">📊 ${esc(name||'اللاعب')}</div><div id="psContent"><div class="skeleton" style="height:120px;border-radius:var(--r8)"></div></div>`);
   await renderPlayerStatsSheet(userId,name,'psContent');
@@ -3157,32 +3294,48 @@ async function apAddPlayer(){
 
 async function apSavePlayer(){
   if(!await requireAdmin())return;
-  const id=document.getElementById('apEditPlayerId').value;
-  const pts=parseInt(document.getElementById('apEditPlayerPts')?.value||'0');
+  const id = document.getElementById('apEditPlayerId').value;
+  const newName = sanitize(document.getElementById('apEditPlayerNewName')?.value||'');
+  const pts = parseInt(document.getElementById('apEditPlayerPts')?.value||'0');
+  const newPass = (document.getElementById('apEditPlayerPass')?.value||'').trim();
+
   if(isNaN(pts)||pts<0){toast('نقاط غير صحيحة','err');return}
+  if(newName && newName.split(/\s+/).filter(Boolean).length < 2){
+    toast('الاسم يجب أن يكون اسمين على الأقل','err');return;
+  }
+
   setBtnLoading('apSavePlayerBtn',true);
   try{
-    const existing=await apFetch(`/rest/v1/leaderboard?user_id=eq.${id}&select=user_id`);
-    console.log('ID:',id,'PTS:',pts,'EXISTS:',existing);
+    // تحديث الاسم إن أُدخل
+    if(newName){
+      const nameCheck = await apFetch(`/rest/v1/users?display_name=ilike.${encodeURIComponent(newName)}&id=neq.${id}&select=id`);
+      if(nameCheck?.length){toast('هذا الاسم مستخدم بالفعل','err');return}
+      await apFetch(`/rest/v1/users?id=eq.${id}`,'PATCH',{display_name:newName},{Prefer:'return=minimal'});
+      document.getElementById('apEditPlayerNameDisplay').textContent = newName;
+    }
+
+    // تحديث النقاط
+    const existing = await apFetch(`/rest/v1/leaderboard?user_id=eq.${id}&select=user_id`);
     if(existing?.length){
-      const r=await apFetch(`/rest/v1/leaderboard?user_id=eq.${id}`,'PATCH',{
+      await apFetch(`/rest/v1/leaderboard?user_id=eq.${id}`,'PATCH',{
         total_points:pts,
         last_updated:new Date().toISOString()
       },{Prefer:'return=minimal'});
-      console.log('PATCH result:',r);
-      toast('PATCH: '+JSON.stringify(r),'info',8000);
     }else{
-      const r=await apFetch('/rest/v1/leaderboard','POST',{
+      await apFetch('/rest/v1/leaderboard','POST',{
         user_id:id,total_points:pts,exact_scores:0,
         total_predictions:0,last_updated:new Date().toISOString()
       },{Prefer:'return=minimal'});
-      console.log('POST result:',r);
-      toast('POST: '+JSON.stringify(r),'info',8000);
     }
-  }catch(e){
-    toast('خطأ: '+e.message,'err',8000);
-    console.error(e);
-  }finally{setBtnLoading('apSavePlayerBtn',false)}
+
+    toast('✅ تم الحفظ بنجاح','ok');
+    apLog('✏️', `تعديل لاعب: ${newName||'(نفس الاسم)'} — ${pts} نقطة`);
+    apCloseModal('apEditPlayerModal');
+    CACHE.clear();S.lb=null;
+    await apLoadPlayersSection();
+
+  }catch(e){toast('خطأ: '+e.message,'err')}
+  finally{setBtnLoading('apSavePlayerBtn',false)}
 }
 async function apSetPts(){
   if(!await requireAdmin())return;
@@ -3448,4 +3601,4 @@ if('serviceWorker' in navigator){
 }
 </script>
 </body>
-</html>
+   </html>
