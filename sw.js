@@ -1,33 +1,20 @@
-const CACHE_NAME = 'elite-preds-v1';
-const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json'
-];
+const CACHE_NAME = 'elite-v' + Date.now();
 
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(c => c.addAll(ASSETS))
-  );
+self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-self.addEventListener('activate', e => {
-  e.waitUntil(
+self.addEventListener('activate', event => {
+  event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-    )
+      Promise.all(keys.map(key => caches.delete(key)))
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-self.addEventListener('fetch', e => {
-  // Supabase requests — شبكة فقط
-  if (e.request.url.includes('supabase.co')) {
-    e.respondWith(fetch(e.request));
-    return;
-  }
-  e.respondWith(
-    caches.match(e.request).then(r => r || fetch(e.request))
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    fetch(event.request, { cache: 'no-store' })
+      .catch(() => caches.match(event.request))
   );
 });
