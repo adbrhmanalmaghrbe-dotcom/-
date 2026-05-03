@@ -1857,7 +1857,7 @@ function enterApp(){
   document.getElementById('navUsername').textContent = S.user.display_name||S.user.username;
   document.getElementById('navAvatar').textContent = initials(S.user.display_name||S.user.username);
   const adminTab = document.getElementById('adminTab');
-  if(adminTab){ if(S.user.is_admin) adminTab.style.display=''; else adminTab.remove(); }
+  if(adminTab){ if(S.user.is_admin) adminTab.style.display=''; else adminTab.style.display='none'; }
   // مزامنة إعدادات النقاط من Supabase
   sb.from('settings').select('key,value').in('key',['pts_exact','pts_double','double_enabled']).then(r=>{
     if(r.data) r.data.forEach(s=>{
@@ -3443,8 +3443,9 @@ async function apDelAllPreds(){
    EVENT LISTENERS
 ══════════════════════════════════════ */
 function setupRealtime(){
-  sb.channel('elite-realtime')
-    .on('postgres_changes',{event:'*',schema:'public',table:'matches'},()=>{
+  try{
+    const ch = sb.channel('elite-realtime-'+Date.now());
+    ch.on('postgres_changes',{event:'*',schema:'public',table:'matches'},()=>{
       CACHE.del('pred');
       if(S.tab==='pred') loadPredPage(true);
     })
@@ -3456,7 +3457,10 @@ function setupRealtime(){
       CACHE.del('lb');
       if(S.tab==='lb') loadLeaderboard(true);
     })
-    .subscribe();
+    .subscribe((status)=>{
+      if(status==='CHANNEL_ERROR') console.warn('Realtime error, retrying...');
+    });
+  }catch(e){ console.warn('Realtime setup failed:',e); }
 }
 function initEvents(){
   document.getElementById('loginBtn')?.addEventListener('click',doLogin);
