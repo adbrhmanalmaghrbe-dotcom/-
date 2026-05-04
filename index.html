@@ -403,6 +403,12 @@ a{color:inherit;text-decoration:none}
 
 /* ── SUBMITTED BANNER ── */
 .submitted-banner{background:linear-gradient(135deg,rgba(16,185,129,.09),rgba(124,111,255,.07));border:1px solid rgba(16,185,129,.28);border-radius:var(--r10);padding:var(--s5);margin-bottom:var(--s4);display:flex;align-items:center;gap:var(--s4)}
+.day-group-header{display:flex;align-items:center;justify-content:space-between;padding:var(--s2) var(--s3);margin:var(--s3) 0 var(--s2);border-bottom:1px solid rgba(255,255,255,.06)}
+.day-group-label{font-size:13px;font-weight:800;color:var(--t2)}
+.day-group-count{font-size:11px;font-weight:700;color:var(--t3);background:var(--glass);padding:2px var(--s2);border-radius:var(--rfull);border:1px solid var(--rim)}
+.day-group-header{display:flex;align-items:center;justify-content:space-between;padding:var(--s2) var(--s3);margin:var(--s3) 0 var(--s2);border-bottom:1px solid rgba(255,255,255,.06)}
+.day-group-label{font-size:13px;font-weight:800;color:var(--t2)}
+.day-group-count{font-size:11px;font-weight:700;color:var(--t3);background:var(--glass);padding:2px var(--s2);border-radius:var(--rfull);border:1px solid var(--rim)}
 .submitted-icon{font-size:2.4rem;flex-shrink:0;animation:float 3s ease-in-out infinite}
 .submitted-title{font-size:15px;font-weight:900;color:var(--ok-l)}
 .submitted-sub{font-size:12px;color:var(--t3);margin-top:2px}
@@ -759,6 +765,18 @@ a{color:inherit;text-decoration:none}
 .lb-sub{font-size:11px;color:var(--t3);font-weight:600;margin-top:1px}
 .lb-pts-val{font-size:18px;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums}
 .lb-pts-lbl{font-size:10px;color:var(--t3);text-align:center}
+.lb-cols-header{display:flex;align-items:center;padding:var(--s2) var(--s4);gap:var(--s2);margin-bottom:var(--s1)}
+.lb-col-lbl{width:56px;text-align:center;font-size:10px;font-weight:800;color:var(--t3);letter-spacing:.3px;text-transform:uppercase}
+.lb-row-v2{display:flex;align-items:center;gap:var(--s2);background:var(--glass);border:1px solid var(--rim);border-radius:var(--r10);padding:var(--s3) var(--s4);cursor:pointer;transition:all var(--base) var(--ease-smooth);margin-bottom:var(--s2)}
+.lb-row-v2:hover{background:var(--glass-2);border-color:rgba(124,111,255,.22)}
+.lb-row-v2.is-me{background:var(--p-a);border-color:rgba(124,111,255,.38);box-shadow:0 0 22px rgba(124,111,255,.16)}
+.lb-rank-v2{font-size:13px;font-weight:900;color:var(--t3);min-width:26px;text-align:center}
+.lb-pts-block{width:56px;text-align:center;flex-shrink:0;border-radius:var(--r6);padding:4px 2px}
+.lb-pts-total{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2)}
+.lb-pts-round{background:rgba(124,111,255,.1);border:1px solid rgba(124,111,255,.2)}
+.lb-pts-num{font-size:16px;font-weight:900;line-height:1;color:var(--gold)}
+.lb-pts-round .lb-pts-num{color:var(--p-3)}
+.lb-pts-tag{font-size:9px;font-weight:700;color:var(--t3);margin-top:2px}
 
 /* ── HISTORY ── */
 .hist-stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s2);margin-bottom:var(--s4)}
@@ -804,11 +822,11 @@ a{color:inherit;text-decoration:none}
 .ap-topbar{background:rgba(5,8,19,.99);border-bottom:1px solid var(--rim);padding:0 var(--s4);height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .ap-brand{font-size:13px;font-weight:900;color:var(--gold);display:flex;align-items:center;gap:var(--s2)}
 .ap-online{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--t3)}
-.ap-nav{background:rgba(5,8,19,.98);border-bottom:1px solid var(--rim);display:flex;overflow-x:auto;padding:0 var(--s2);scrollbar-width:none;flex-shrink:0}
-.ap-nav::-webkit-scrollbar{display:none}
-.ap-nav-btn{flex-shrink:0;padding:var(--s3) var(--s4);font-size:12px;font-weight:700;color:var(--t3);border-bottom:2px solid transparent;transition:all var(--base);white-space:nowrap;cursor:pointer;font-family:var(--ff);background:none;border-top:none;border-left:none;border-right:none}
-.ap-nav-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
-.ap-nav-btn:hover{color:var(--t1)}
+.ap-nav{background:rgba(5,8,19,.98);border-bottom:1px solid var(--rim);display:grid;grid-template-columns:repeat(4,1fr);padding:var(--s1);gap:2px;flex-shrink:0}
+.ap-nav-btn{padding:var(--s2) var(--s1);font-size:11px;font-weight:700;color:var(--t3);border-bottom:2px solid transparent;transition:all var(--base);white-space:nowrap;cursor:pointer;font-family:var(--ff);background:rgba(255,255,255,.02);border-radius:var(--r4);text-align:center;border:1px solid transparent;overflow:hidden;text-overflow:ellipsis}
+.ap-nav-btn.active{color:var(--gold);background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.25)}
+.ap-nav-btn:hover{color:var(--t1);background:rgba(255,255,255,.05)}
+@media(max-width:380px){.ap-nav{grid-template-columns:repeat(3,1fr)}.ap-nav-btn{font-size:10px;padding:var(--s1) 4px}}
 .ap-main{padding:var(--s4);max-width:900px;margin:0 auto;padding-bottom:calc(var(--tab-h) + var(--safe-b) + var(--s8));flex:1}
 .ap-section{display:none}
 .ap-section.active{display:block;animation:fadeUp .24s var(--ease-out)}
@@ -1111,7 +1129,7 @@ a{color:inherit;text-decoration:none}
           </div>
           <div class="ap-calc-box">
             <div class="ap-card-title" style="justify-content:center;margin-bottom:var(--s2)">⚡ احتساب النقاط</div>
-            <p>اختر الجولة المكتملة واضغط احتساب.<br><strong style="color:var(--gold)">يتم الاحتساب على السيرفر بأمان</strong></p>
+            <p>اختر الجولة واضغط احتساب.<br><strong style="color:var(--gold)">يحتسب فقط المباريات المنتهية غير المحتسبة</strong><br><span style="color:var(--ok-l);font-size:11px">✅ آمن للاستخدام مرات متعددة — لن تتكرر النقاط</span></p>
             <div class="ap-field" style="margin-bottom:var(--s3)">
               <select id="apCalcRound"><option value="">— اختر الجولة —</option></select>
             </div>
@@ -1386,7 +1404,7 @@ const SUPABASE_KEY = 'sb_publishable_lhQllygeY_QagLi_jPEM5w_s8jLS7y5';
 const STORAGE_KEY_AUTH  = 'elite_auth_v5';
 const STORAGE_KEY_PTS   = 'elite_pts_v3';
 const STORAGE_KEY_DRAFT = 'elite_draft_v4';
-const CACHE_TTL = { pred: 60, lb: 120, hist: 180 };
+const CACHE_TTL = { pred: 30, lb: 60, hist: 120 };
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
   auth:{
@@ -1450,7 +1468,7 @@ async function verifyAdminNow(){
 async function requireAdmin(){
   if(!S.user?.is_admin){ toast('⛔ غير مصرح','err'); return false; }
   const now = Date.now();
-  if(_adminOk && now - _adminAt < 30000) return true;
+  if(_adminOk && now - _adminAt < 300000) return true;
   const ok = await verifyAdminNow();
   _adminOk = ok; _adminAt = ok ? now : 0;
   if(!ok){ toast('⛔ فشل التحقق','err'); S.user = null; showAuthPage(); return false; }
@@ -1475,7 +1493,10 @@ async function apFetch(path, method='GET', body, extra){
     'Authorization': 'Bearer ' + sess.data.session.access_token,
     ...extra
   };
-  const res = await fetch(SUPABASE_URL + path, {method, headers, body: body ? JSON.stringify(body) : undefined});
+  const ctrl = new AbortController();
+  const timer = setTimeout(()=>ctrl.abort(), 15000);
+  const res = await fetch(SUPABASE_URL + path, {method, headers, body: body ? JSON.stringify(body) : undefined, signal:ctrl.signal});
+  clearTimeout(timer);
   if(res.status === 401){ showAuthPage(); throw new Error('Unauthorized'); }
   const text = await res.text();
   if(!res.ok && res.status !== 204 && res.status !== 406){
@@ -1991,12 +2012,35 @@ function renderNoPredPage(){
 /* ══════════════════════════════════════
    PREDICTIONS — RENDER
 ══════════════════════════════════════ */
+function groupMatchesByDay(matches){
+  const groups = {};
+  const order = [];
+  matches.forEach(m=>{
+    const dt = m.startTime ? new Date(m.startTime) : null;
+    const key = dt ? dt.toISOString().slice(0,10) : 'unknown';
+    if(!groups[key]){ groups[key]={label:dayLabel(dt),matches:[]}; order.push(key); }
+    groups[key].matches.push(m);
+  });
+  return order.map(k=>groups[k]);
+}
+
+function dayLabel(dt){
+  if(!dt) return '—';
+  const now = new Date(); const today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const tomorrow = new Date(today); tomorrow.setDate(today.getDate()+1);
+  const matchDay = new Date(dt.getFullYear(),dt.getMonth(),dt.getDate());
+  const diff = Math.round((matchDay-today)/(1000*60*60*24));
+  if(diff===0) return '📅 اليوم';
+  if(diff===1) return '📅 غدًا';
+  if(diff===-1) return '📅 أمس';
+  return '📅 '+dt.toLocaleDateString('ar-SA',{weekday:'long',day:'numeric',month:'long'});
+}
+
 function renderPredPage(){
   const d = S.pred; if(!d) return;
   const el = document.getElementById('predContent'); el.scrollTop = 0;
   let html = '';
 
-  /* Round banner */
   const rStatus = d.round.isCalculated?'calculated':d.round.isActive?'open':'closed';
   const rLabel = {open:'🟢 مفتوحة',closed:'🔴 مغلقة',calculated:'🟡 محتسبة'}[rStatus];
   html += `<div class="round-banner status-${rStatus}">
@@ -2010,22 +2054,23 @@ function renderPredPage(){
     </div>
   </div>`;
 
-  /* Stats summary (if results exist) */
   const hasResults = (d.matches||[]).some(m=>m.hasResult);
   if(hasResults && S.submitted && d.myPreds?.length) html += renderStatsSummary(d);
 
-  /* Submitted banner */
   if(S.submitted){
     const dblPred = d.myPreds?.find(p=>p.isDouble);
     html += `<div class="submitted-banner"><div class="submitted-icon">✅</div><div><div class="submitted-title">تم إرسال توقعاتك!</div><div class="submitted-sub">${d.myPreds?.length||0} توقع · ${dblPred?'⭐ مع دبل':'بدون دبل'}</div></div></div>`;
   }
 
-  /* Match cards */
   if(!d.matches?.length){
     html += `<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">لا توجد مباريات بعد</div></div>`;
   }else{
     html += `<div class="sec-header"><div class="sec-title">مباريات الجولة</div><div class="sec-chip">${d.matches.length} مباراة</div></div>`;
-    d.matches.forEach(m=>{ html += renderMatchCard(m, d); });
+    const dayGroups = groupMatchesByDay(d.matches);
+    dayGroups.forEach(group=>{
+      html += `<div class="day-group-header"><span class="day-group-label">${esc(group.label)}</span><span class="day-group-count">${group.matches.length} مباريات</span></div>`;
+      group.matches.forEach(m=>{ html += renderMatchCard(m, d); });
+    });
     html += '<div style="height:16px"></div>';
   }
   el.innerHTML = html;
@@ -2484,17 +2529,15 @@ document.getElementById('lbShareBtn')?.addEventListener('click', async()=>{
   let text = '🏆 *توقعات النخبة — الترتيب الحالي*\n\n';
   sorted.slice(0,10).forEach((p,i)=>{ text+=`${medals[i]||`  ${i+1}.`} ${p.name} — ${p.totalPts} نقطة\n`; });
   text += '\n⚽ Elite Predictions — Premier League';
-  try{
-    if(navigator.share){
-      await navigator.share({text});
-    }else{
-      await navigator.clipboard.writeText(text);
-      toast('✅ تم نسخ الترتيب — افتح واتساب والصق','ok',5000);
-    }
-  }catch{
-    try{ await navigator.clipboard.writeText(text); toast('✅ تم النسخ','ok',5000); }
-    catch{ toast('افتح واتساب يدوياً','warn'); }
-  }
+  const waUrl = 'https://wa.me/?text=' + encodeURIComponent(text);
+  const a = document.createElement('a');
+  a.href = waUrl;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  toast('✅ جارٍ فتح واتساب...','ok',2000);
 });
 
   document.getElementById('lbRefreshBtn')?.addEventListener('click', ()=>loadLeaderboard(true));
@@ -2505,22 +2548,37 @@ document.getElementById('lbShareBtn')?.addEventListener('click', async()=>{
 
 function renderLbList(){
   const listEl = document.getElementById('lbList'); if(!listEl) return;
-  let lb = (S.lb||[]).slice();
-  if(S.lbMode==='round') lb = lb.sort((a,b)=>b.roundPts-a.roundPts);
+  let lb = (S.lb||[]).slice().sort((a,b)=>b.totalPts-a.totalPts||(b.roundPts-a.roundPts));
   if(!lb.length){ listEl.innerHTML='<div class="empty-state"><div class="empty-icon">🏆</div><div class="empty-title">لا يوجد ترتيب بعد</div></div>'; return; }
   const medals = ['🥇','🥈','🥉'];
-  listEl.innerHTML = lb.map((p,i)=>{
-    const pts = S.lbMode==='season'?p.totalPts:p.roundPts;
-    const rank = i+1;
-    const isMe = S.user && p.userId===S.user.id;
-    const acc = p.totalPreds>0 ? Math.round(p.exactCount/p.totalPreds*100) : 0;
-    return `<div class="lb-row ${isMe?'is-me':''}" data-uid="${esc(p.userId)}" data-name="${esc(p.name)}" tabindex="0">
-      <div class="lb-rank">${medals[i]||rank}</div>
-      <div class="lb-avatar">${initials(p.name)}</div>
-      <div class="lb-info"><div class="lb-name">${esc(p.name)}${isMe?' 👈':''}</div><div class="lb-sub">${p.exactCount} إصابة · ${acc}% دقة</div></div>
-      <div style="text-align:center"><div class="lb-pts-val">${pts}</div><div class="lb-pts-lbl">نقطة</div></div>
-    </div>`;
-  }).join('');
+  listEl.innerHTML = `
+    <div class="lb-cols-header">
+      <div style="flex:1"></div>
+      <div class="lb-col-lbl">الإجمالي</div>
+      <div class="lb-col-lbl">الجولة</div>
+    </div>
+    ${lb.map((p,i)=>{
+      const rank = i+1;
+      const isMe = S.user && p.userId===S.user.id;
+      const acc = p.totalPreds>0 ? Math.round(p.exactCount/p.totalPreds*100) : 0;
+      const rankDisplay = medals[i]||rank;
+      return `<div class="lb-row-v2 ${isMe?'is-me':''}" data-uid="${esc(p.userId)}" data-name="${esc(p.name)}" tabindex="0">
+        <div class="lb-rank-v2">${rankDisplay}</div>
+        <div class="lb-avatar">${initials(p.name)}</div>
+        <div class="lb-info">
+          <div class="lb-name">${esc(p.name)}${isMe?' 👈':''}</div>
+          <div class="lb-sub">${p.exactCount} ✅ · ${acc}%</div>
+        </div>
+        <div class="lb-pts-block lb-pts-total">
+          <div class="lb-pts-num">${p.totalPts}</div>
+          <div class="lb-pts-tag">إجمالي</div>
+        </div>
+        <div class="lb-pts-block lb-pts-round">
+          <div class="lb-pts-num">${p.roundPts}</div>
+          <div class="lb-pts-tag">جولة</div>
+        </div>
+      </div>`;
+    }).join('')}`;
 }
 
 
@@ -2886,10 +2944,20 @@ async function apSaveResult(matchId, home, away){
   const ra=parseInt(document.getElementById(`ra_${matchId}`)?.value);
   if(isNaN(rh)||isNaN(ra)||rh<0||ra<0){ toast('أدخل نتيجة صحيحة','err'); return; }
   try{
-    await apFetch(`/rest/v1/matches?id=eq.${matchId}`,'PATCH',{home_score:rh,away_score:ra,status:'finished'},{Prefer:'return=minimal'});
-    toast(`✅ ${home} ${rh}–${ra} ${away}`,'ok');
+    // حفظ النتيجة وإعادة ضبط calculated لإتاحة إعادة الحساب
+    await apFetch(`/rest/v1/matches?id=eq.${matchId}`,'PATCH',
+      {home_score:rh, away_score:ra, status:'finished', calculated:false},
+      {Prefer:'return=minimal'}
+    );
+    toast(`✅ ${home} ${rh}–${ra} ${away} — جاري إعادة الحساب...`,'info',2000);
     apLog('📝',`نتيجة: ${home} ${rh}–${ra} ${away}`);
-    CACHE.del('pred'); S.pred=null; await apLoadResults();
+    // إعادة احتساب هذه المباراة تلقائياً عبر RPC
+    const res = await apFetch('/rest/v1/rpc/recalculate_match_points','POST',{p_match_id: matchId});
+    if(res?.status==='ok'){
+      toast(`✅ تم الحساب: ${res.predictions_updated} توقع`,'ok',3000);
+      CACHE.clear(); S.pred=null; S.lb=null;
+    }
+    await apLoadResults();
   }catch(e){ toast('خطأ في حفظ النتيجة: '+e.message,'err'); }
 }
 
@@ -2938,145 +3006,114 @@ if(apPredMatch && apPredMatch.options.length <= 1){ const cur=apPredMatch.value;
 }
 
 async function apCalculate(){
-  if(!await requireAdmin())return;const roundId=document.getElementById('apCalcRound')?.value;if(!roundId){toast('اختر الجولة أولاً','err');return;}
-  apConfirm('احتساب نقاط هذه الجولة؟',async()=>{
-    setBtnLoading('apCalcBtn',true);
-    try{await apCalculateRaw(roundId);await apFetch(`/rest/v1/gameweeks?id=eq.${roundId}`,'PATCH',{is_calculated:true},{Prefer:'return=minimal'});toast('✅ تم الاحتساب!','ok',5000);apLog('⚡','احتساب جولة');CACHE.clear();S.pred=null;S.lb=null;S.hist=null;await apLoadRoundsSelect();}
-    catch(e){ if(e.message==='already_calculated'){toast('⚠️ هذه الجولة محتسبة مسبقاً — أعد الضبط أولاً','warn',5000);}else{toast('خطأ: '+e.message,'err',6000);} }finally{setBtnLoading('apCalcBtn',false);}
+  if(!await requireAdmin()) return;
+  const roundId = document.getElementById('apCalcRound')?.value;
+  if(!roundId){ toast('اختر الجولة أولاً','err'); return; }
+  apConfirm('احتساب نقاط هذه الجولة؟', async()=>{
+    setBtnLoading('apCalcBtn', true);
+    try{
+      const res = await apFetch('/rest/v1/rpc/calculate_round_points','POST',{p_round_id: roundId});
+      if(res?.status==='ok'){
+        toast(`✅ تم! ${res.processed_matches} مباراة · ${res.processed_predictions} توقع`,'ok',5000);
+        apLog('⚡',`احتساب جولة: ${res.processed_matches} مباراة`);
+        CACHE.clear(); S.pred=null; S.lb=null; S.hist=null;
+        await apLoadRoundsSelect();
+      } else {
+        toast('⚠️ '+(res?.msg||'لا توجد مباريات جديدة للاحتساب'),'warn',5000);
+      }
+    }catch(e){ toast('خطأ: '+e.message,'err',6000); }
+    finally{ setBtnLoading('apCalcBtn',false); }
   });
 }
 
 async function apCalculateRaw(roundId){
-  // تحقق من عدم الاحتساب المسبق
   const gwCheck = await apFetch(`/rest/v1/gameweeks?id=eq.${roundId}&select=is_calculated`);
-  if(gwCheck?.[0]?.is_calculated === true){
-    throw new Error('already_calculated');
-  }
+  if(gwCheck?.[0]?.is_calculated === true) throw new Error('already_calculated');
 
   const matchRes = await apFetch(
     `/rest/v1/matches?gameweek_id=eq.${roundId}&status=eq.finished&home_score=not.is.null&select=id,home_score,away_score`
   );
-  if(!matchRes?.length) return;
+  if(!matchRes?.length){ toast('لا توجد مباريات منتهية بنتائج','warn'); return; }
 
   const matchMap = {};
   matchRes.forEach(m => { matchMap[m.id] = {rh:m.home_score, ra:m.away_score}; });
 
   const predsRes = await apFetch(
-    `/rest/v1/predictions?gameweek_id=eq.${roundId}&select=id,user_id,match_id,home_score,away_score,is_double,points_earned`
+    `/rest/v1/predictions?gameweek_id=eq.${roundId}&points_earned=eq.0&select=id,user_id,match_id,home_score,away_score,is_double`
   );
-  if(!predsRes?.length) return;
+  if(!predsRes?.length){ toast('لا توجد توقعات جديدة للاحتساب','info'); return; }
 
-  // فصل التوقعات: الجديدة (points_earned=0) فقط
   const userRoundPts = {}, userRoundExact = {}, userRoundTotal = {};
+  const exactIds = [], doubleWinIds = [];
 
   for(const p of predsRes){
     const r = matchMap[p.match_id]; if(!r) continue;
     const exact = Number(p.home_score)===Number(r.rh) && Number(p.away_score)===Number(r.ra);
     const pts = exact ? (p.is_double ? PTS.double : PTS.exact) : 0;
-
-    // تحديث التوقع دائماً (لضمان صحة القيمة)
-    await apFetch(`/rest/v1/predictions?id=eq.${p.id}`, 'PATCH',
-      {points_earned: pts}, {Prefer:'return=minimal'});
-
+    if(exact && p.is_double) doubleWinIds.push(p.id);
+    else if(exact)           exactIds.push(p.id);
     if(!userRoundPts[p.user_id]){ userRoundPts[p.user_id]=0; userRoundExact[p.user_id]=0; userRoundTotal[p.user_id]=0; }
     userRoundPts[p.user_id]   += pts;
     if(exact) userRoundExact[p.user_id]++;
     userRoundTotal[p.user_id]++;
   }
 
-  // تحديث الـ leaderboard بأمان — جلب القيم الحالية أولاً
+  if(exactIds.length)
+    await apFetch(`/rest/v1/predictions?id=in.(${exactIds.join(',')})`, 'PATCH',
+      {points_earned: PTS.exact}, {Prefer:'return=minimal'});
+  if(doubleWinIds.length)
+    await apFetch(`/rest/v1/predictions?id=in.(${doubleWinIds.join(',')})`, 'PATCH',
+      {points_earned: PTS.double}, {Prefer:'return=minimal'});
+
   const allUids = Object.keys(userRoundPts);
+  if(!allUids.length) return;
+
   const lbData = await apFetch(
-    `/rest/v1/leaderboard?user_id=in.(${allUids.join(',')})&select=user_id,total_points,exact_scores,total_predictions`
+    `/rest/v1/leaderboard?user_id=in.(${allUids.join(',')})&select=user_id,total_points`
   );
   const lbMap = {};
   (lbData||[]).forEach(r=>{ lbMap[r.user_id]=r; });
 
   for(const uid of allUids){
-    const pts = userRoundPts[uid];
-    const cur = lbMap[uid] || {total_points:0, exact_scores:0, total_predictions:0};
-    await apFetch('/rest/v1/leaderboard', 'POST',
-      {
-        user_id: uid,
-        total_points:      (cur.total_points||0)      + pts,
-        exact_scores:      (cur.exact_scores||0)      + userRoundExact[uid],
-        total_predictions: (cur.total_predictions||0) + userRoundTotal[uid],
-        last_updated: new Date().toISOString()
-      },
-      {Prefer:'resolution=merge-duplicates,return=minimal'}
-    );
+    const curPts = lbMap[uid]?.total_points || 0;
+    const newPts = curPts + userRoundPts[uid];
+    await updateLeaderboardPoints(uid, newPts);
   }
 }
 
 async function apResetRound(){
-  if(!await requireAdmin())return;
-  const roundId=document.getElementById('apCalcRound')?.value;
-  if(!roundId){toast('اختر الجولة أولاً','err');return;}
-  apConfirm('⚠️ إعادة ضبط نقاط هذه الجولة؟',async()=>{
-    setBtnLoading('apResetBtn',true);
+  if(!await requireAdmin()) return;
+  const roundId = document.getElementById('apCalcRound')?.value;
+  if(!roundId){ toast('اختر الجولة أولاً','err'); return; }
+  apConfirm('⚠️ إعادة ضبط نقاط هذه الجولة؟', async()=>{
+    setBtnLoading('apResetBtn', true);
     try{
-      // جمع نقاط كل مستخدم في هذه الجولة
-      const preds=await apFetch(`/rest/v1/predictions?gameweek_id=eq.${roundId}&select=user_id,points_earned`);
-      const userPtsToRemove = {};
-      (preds||[]).forEach(p=>{
-        if((p.points_earned||0)>0){
-          userPtsToRemove[p.user_id] = (userPtsToRemove[p.user_id]||0) + (p.points_earned||0);
-        }
-      });
-      // طرح النقاط لكل مستخدم مرة واحدة فقط
-      for(const [uid, ptsToRemove] of Object.entries(userPtsToRemove)){
-        const lbRes = await apFetch(`/rest/v1/leaderboard?user_id=eq.${uid}&select=total_points,exact_scores,total_predictions`);
-        const cur = lbRes?.[0];
-        if(!cur) continue;
-        const newPts = Math.max(0, (cur.total_points||0) - ptsToRemove);
-        await apFetch(`/rest/v1/leaderboard?user_id=eq.${uid}`,'PATCH',
-          {total_points: newPts, last_updated: new Date().toISOString()},
-          {Prefer:'return=minimal'}
-        );
+      const res = await apFetch('/rest/v1/rpc/reset_round_points','POST',{p_round_id: roundId});
+      if(res?.status==='ok'){
+        toast('✅ تم إعادة الضبط','ok');
+        apLog('🔄','إعادة ضبط جولة');
+        CACHE.clear(); S.pred=null; S.lb=null; S.hist=null;
+        await apLoadRoundsSelect();
       }
-      await apFetch(`/rest/v1/predictions?gameweek_id=eq.${roundId}`,'PATCH',{points_earned:0},{Prefer:'return=minimal'});
-      await apFetch(`/rest/v1/gameweeks?id=eq.${roundId}`,'PATCH',{is_calculated:false},{Prefer:'return=minimal'});
-      toast('✅ تم إعادة الضبط','ok');apLog('🔄','إعادة ضبط جولة');
-      CACHE.clear();S.pred=null;S.lb=null;S.hist=null;
-      await apLoadRoundsSelect();
-    }catch(e){toast('خطأ: '+e.message,'err');}
-    finally{setBtnLoading('apResetBtn',false);}
+    }catch(e){ toast('خطأ: '+e.message,'err'); }
+    finally{ setBtnLoading('apResetBtn',false); }
   });
 }
 
 async function apRecalcAll(){
-  if(!await requireAdmin())return;
-  apConfirm('⚠️ إعادة حساب كامل لجميع الجولات؟',async()=>{
-    setBtnLoading('apRecalcAllBtn',true);
+  if(!await requireAdmin()) return;
+  apConfirm('⚠️ إعادة حساب كامل لجميع الجولات؟', async()=>{
+    setBtnLoading('apRecalcAllBtn', true);
     try{
-      const oldLb=await apFetch('/rest/v1/leaderboard?select=user_id,base_points');
-      const baseMap={};
-      (oldLb||[]).forEach(r=>{baseMap[r.user_id]=r.base_points||0;});
-      await apFetch('/rest/v1/leaderboard?user_id=not.is.null','DELETE');
-    await apFetch('/rest/v1/predictions?id=not.is.null','PATCH',{points_earned:0},{Prefer:'return=minimal'});
-    await apFetch('/rest/v1/gameweeks?id=not.is.null','PATCH',{is_calculated:false},{Prefer:'return=minimal'});
-    await new Promise(r=>setTimeout(r,800));
-    const users=await apFetch('/rest/v1/users?select=id&is_admin=eq.false');
-    for(const u of(users||[])){
-      const base=baseMap[u.id]||0;
-      await apFetch('/rest/v1/leaderboard','POST',
-        {user_id:u.id,total_points:base,exact_scores:0,total_predictions:0,last_updated:new Date().toISOString()},
-        {Prefer:'resolution=merge-duplicates,return=minimal'}
-      );
-    }
-      const rounds=await apFetch('/rest/v1/gameweeks?select=id&order=number.asc');
-      for(const r of(rounds||[])){
-        try{
-          await apCalculateRaw(r.id);
-          await apFetch(`/rest/v1/gameweeks?id=eq.${r.id}`,'PATCH',{is_calculated:true},{Prefer:'return=minimal'});
-        }catch(e){ if(e.message!=='already_calculated') throw e; }
+      const res = await apFetch('/rest/v1/rpc/recalculate_all_rounds','POST',{});
+      if(res?.status==='ok'){
+        toast(`✅ اكتمل! ${res.total_matches} مباراة · ${res.total_predictions} توقع`,'ok',5000);
+        apLog('⚡','إعادة حساب كامل');
+        CACHE.clear(); S.lb=null;
+        await apLoadLbAdmin();
       }
-      toast('✅ إعادة الحساب اكتملت','ok',5000);
-      apLog('⚡','إعادة حساب كامل');
-      CACHE.clear();S.lb=null;
-      await apLoadLbAdmin();
-    }catch(e){toast('خطأ: '+e.message,'err');}
-    finally{setBtnLoading('apRecalcAllBtn',false);}
+    }catch(e){ toast('خطأ: '+e.message,'err'); }
+    finally{ setBtnLoading('apRecalcAllBtn',false); }
   });
 }
 async function apLoadLbAdmin(){
@@ -3105,13 +3142,18 @@ function apOpenEditPtsModal(userId,name,currentPts){
 }
 async function updateLeaderboardPoints(userId, newPts){
   try{
-    const cur = await apFetch(`/rest/v1/leaderboard?user_id=eq.${userId}&select=exact_scores,total_predictions`);
-    const existing = cur?.[0]||{exact_scores:0,total_predictions:0};
-    await apFetch('/rest/v1/leaderboard','POST',
-      {user_id:userId, total_points:newPts, exact_scores:existing.exact_scores||0,
-       total_predictions:existing.total_predictions||0, last_updated:new Date().toISOString()},
-      {Prefer:'resolution=merge-duplicates,return=minimal'}
-    );
+    const cur = await apFetch(`/rest/v1/leaderboard?user_id=eq.${userId}&select=user_id,exact_scores,total_predictions`);
+    if(cur?.[0]){
+      await apFetch(`/rest/v1/leaderboard?user_id=eq.${userId}`,'PATCH',
+        {total_points:newPts, last_updated:new Date().toISOString()},
+        {Prefer:'return=minimal'}
+      );
+    } else {
+      await apFetch('/rest/v1/leaderboard','POST',
+        {user_id:userId, total_points:newPts, exact_scores:0, total_predictions:0, last_updated:new Date().toISOString()},
+        {Prefer:'return=minimal'}
+      );
+    }
   }catch(e){ throw new Error('فشل تحديث النقاط: '+e.message); }
 }
 
